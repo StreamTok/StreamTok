@@ -1,33 +1,52 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StreamTok - ثورة في عالم البث المباشر</title>
+    <title>StreamTok - Revolution in Live Streaming</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #ff0050;
             --secondary: #00f2ea;
-            --dark: #0f0f0f;
+            --accent: #7b2ff7;
+            --dark: #0a0a0f;
             --light: #ffffff;
             --gray: #a0a0a0;
             --card-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Cairo', 'Roboto', sans-serif;
         }
         
         body {
-            background-color: #0a0a0a;
+            background-color: var(--dark);
             color: var(--light);
             overflow-x: hidden;
             line-height: 1.6;
+            font-family: 'Cairo', 'Roboto', sans-serif;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 0, 80, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(0, 242, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(123, 47, 247, 0.05) 0%, transparent 40%);
+            z-index: -1;
         }
         
         .container {
@@ -38,14 +57,30 @@
         }
         
         header {
-            background: rgba(15, 15, 15, 0.9);
-            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
             padding: 15px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 10px 0;
+            background: rgba(10, 10, 15, 0.9);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-container {
+            backdrop-filter: blur(10px);
+            background: var(--glass-bg);
+            border-radius: 50px;
+            padding: 10px 20px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
         
         .header-container {
@@ -59,15 +94,26 @@
             align-items: center;
             font-size: 28px;
             font-weight: 900;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: gradient 3s ease infinite;
+            text-shadow: 0 0 20px rgba(255, 0, 80, 0.3);
         }
         
         @keyframes gradient {
             0%, 100% { filter: hue-rotate(0deg); }
             50% { filter: hue-rotate(30deg); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(255, 0, 80, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(255, 0, 80, 0.8); }
         }
         
         .logo i {
@@ -89,6 +135,13 @@
             font-size: 16px;
             transition: all 0.3s;
             position: relative;
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+
+        nav ul li a:hover {
+            background: var(--glass-bg);
+            backdrop-filter: blur(5px);
         }
         
         nav ul li a::after {
@@ -164,6 +217,7 @@
             font-size: 16px;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 15px rgba(255, 0, 80, 0.3);
         }
         
         .cta-button::before {
@@ -193,6 +247,34 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
+            background: linear-gradient(135deg, rgba(10, 10, 15, 0.95), rgba(20, 20, 30, 0.95));
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255, 0, 80, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 80% 70%, rgba(0, 242, 234, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 40% 80%, rgba(123, 47, 247, 0.1) 0%, transparent 30%);
+            z-index: -1;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/></svg>');
+            background-size: 100px 100px;
+            z-index: -1;
         }
         
         .hero-bg {
@@ -214,13 +296,30 @@
         }
         
         .hero-text h1 {
-            font-size: 4rem;
+            font-size: 5rem;
             font-weight: 900;
             line-height: 1.1;
             margin-bottom: 30px;
-            background: linear-gradient(90deg, var(--light), var(--secondary));
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            filter: drop-shadow(0 0 20px rgba(255, 0, 80, 0.3));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-text h1::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 150px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+            box-shadow: 0 0 15px rgba(255, 0, 80, 0.3);
         }
         
         .hero-text .highlight {
@@ -229,16 +328,77 @@
         }
         
         .hero-text p {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             margin-bottom: 40px;
-            color: var(--gray);
+            color: rgba(255, 255, 255, 0.85);
             max-width: 90%;
+            line-height: 1.7;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(2px);
+            padding: 15px;
+            border-radius: 15px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
         }
         
         .hero-buttons {
             display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 20px;
+            align-items: flex-start;
+        }
+
+        .download-buttons {
+            display: flex;
             gap: 20px;
             flex-wrap: wrap;
+        }
+
+        .lite-btn {
+            background: linear-gradient(135deg, var(--glass-bg), rgba(255, 255, 255, 0.02));
+            color: var(--light);
+            border: 2px solid var(--glass-border);
+            padding: 14px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            min-width: 180px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .lite-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .price-tag-lite {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-weight: 600;
+            margin-right: 8px;
+            font-size: 0.9rem;
+        }
+
+        .price-tag-original {
+            display: inline-block;
+            background: rgba(0, 242, 234, 0.3);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-weight: 600;
+            margin-right: 8px;
+            font-size: 0.9rem;
         }
         
         .primary-btn {
@@ -293,6 +453,44 @@
             transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(255, 0, 80, 0.3);
         }
+
+        .original-btn {
+            background: linear-gradient(135deg, rgba(0, 242, 234, 0.15), rgba(0, 242, 234, 0.05));
+            color: var(--secondary);
+            border: 2px solid var(--secondary);
+            padding: 14px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            min-width: 180px;
+            box-shadow: 0 4px 15px rgba(0, 242, 234, 0.1);
+        }
+
+        .original-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 242, 234, 0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .original-btn:hover::before {
+            left: 100%;
+        }
+
+        .original-btn:hover {
+            background: rgba(0, 242, 234, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 242, 234, 0.2);
+        }
         
         .price-tag {
             display: inline-block;
@@ -320,15 +518,33 @@
         }
         
         .phone-mockup {
-            width: 300px;
-            height: 600px;
-            background: #222;
+            width: 320px;
+            height: 640px;
+            background: linear-gradient(135deg, rgba(30, 30, 40, 0.9), rgba(20, 20, 30, 0.9));
             border-radius: 40px;
             padding: 10px;
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
             position: relative;
             transform: rotate(-5deg);
             animation: float 4s ease-in-out infinite;
+            border: 2px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .phone-mockup::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 40px;
+            padding: 2px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.5;
         }
         
         @keyframes float {
@@ -339,10 +555,11 @@
         .phone-screen {
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #ff0050, #00f2ea);
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
             border-radius: 30px;
             overflow: hidden;
             position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
         }
         
         .screen-content {
@@ -351,7 +568,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -384,6 +602,14 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            box-shadow: 0 0 15px rgba(255, 0, 80, 0.5);
+            animation: pulse-live 2s infinite;
+        }
+
+        @keyframes pulse-live {
+            0% { box-shadow: 0 0 15px rgba(255, 0, 80, 0.5); }
+            50% { box-shadow: 0 0 25px rgba(255, 0, 80, 0.8); }
+            100% { box-shadow: 0 0 15px rgba(255, 0, 80, 0.5); }
         }
         
         .live-indicator::before {
@@ -413,17 +639,55 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .viewer-count i {
+            color: var(--secondary);
         }
         
         .features {
             padding: 100px 0;
             background: linear-gradient(180deg, #0a0a0a 0%, #151515 100%);
             position: relative;
+            overflow: hidden;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 0, 80, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(0, 242, 234, 0.05) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .features .container {
+            position: relative;
+            z-index: 1;
         }
         
         .section-title {
             text-align: center;
             margin-bottom: 80px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
         }
         
         .section-title h2 {
@@ -456,6 +720,26 @@
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
+            transform: translateY(0);
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            transition: all 0.5s ease;
+        }
+
+        .feature-card:hover::after {
+            top: -25px;
+            right: -25px;
+            width: 150px;
+            height: 150px;
         }
         
         .feature-card::before {
@@ -504,17 +788,77 @@
             padding: 100px 0;
             background: linear-gradient(180deg, #151515 0%, #0a0a0a 100%);
             position: relative;
+            overflow: hidden;
+        }
+
+        .pricing::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 80% 20%, rgba(255, 0, 80, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(0, 242, 234, 0.05) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .pricing .container {
+            position: relative;
+            z-index: 1;
         }
         
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 20px;
+        }
+
         .pricing-card {
             background: linear-gradient(135deg, #1a1a1a, #222);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
             overflow: hidden;
-            max-width: 500px;
-            margin: 0 auto;
             position: relative;
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .original-card {
+            border: 2px solid var(--secondary);
+            transform: scale(1.05);
+        }
+
+        .lite-card {
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .pricing-desc {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+        }
+
+        .pricing-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(255, 0, 80, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(50%, -50%);
         }
         
         .pricing-card::before {
@@ -578,6 +922,12 @@
             color: var(--secondary);
             margin-left: 15px;
             font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-features li:hover i {
+            transform: scale(1.2);
+            color: var(--primary);
         }
         
         .pricing-button {
@@ -619,6 +969,26 @@
         .stats {
             padding: 100px 0;
             background: linear-gradient(180deg, #0a0a0a 0%, #151515 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 30% 30%, rgba(255, 0, 80, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(0, 242, 234, 0.05) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .stats .container {
+            position: relative;
+            z-index: 1;
         }
         
         .stats-grid {
@@ -634,6 +1004,25 @@
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+
+        .stat-card:hover::after {
+            transform: scaleX(1);
         }
         
         .stat-card:hover {
@@ -659,6 +1048,25 @@
             padding: 100px 0;
             background: linear-gradient(135deg, rgba(255, 0, 80, 0.1), rgba(0, 242, 234, 0.1));
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .cta .container {
+            position: relative;
+            z-index: 1;
         }
         
         .cta h2 {
@@ -691,6 +1099,19 @@
             font-size: 1.5rem;
             margin-bottom: 25px;
             font-weight: 800;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
         }
         
         .footer-col ul {
@@ -730,6 +1151,24 @@
             color: white;
             transition: all 0.3s;
             font-size: 1.2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .social-links a:hover::before {
+            transform: translateX(100%);
         }
         
         .social-links a:hover {
@@ -789,7 +1228,7 @@
     
     <script>
         // Language toggle functionality
-        let currentLang = 'ar';
+        let currentLang = 'en';
         
         const translations = {
             ar: {
@@ -799,14 +1238,17 @@
                 nav_pricing: 'الأسعار',
                 nav_stats: 'الإحصائيات',
                 nav_contact: 'تواصل',
-                download_btn: 'حمل الأن',
+                download_lite: 'تحميل النسخة لايت',
+                download_original: 'تحميل النسخة الأصلية',
                 lang_toggle: '🌍 English',
                 
                 // Hero section
                 hero_title: 'ثورة في عالم <span class="highlight">تيك توك لايف</span>',
                 hero_desc: 'StreamTok هو أداة التحكم الذكي في بث TikTok Live مع ردود أفعال تلقائية وأصوات مخصصة لتفاعل أكثر إثارة ومتعة',
                 try_now: 'جرب الآن',
-                price_tag: '3$/شهر',
+                price_tag: '6$/شهر',
+                lite_price: '3$/شهر',
+                original_price: '6$/شهر',
                 
                 // Features
                 features_title: 'مميزات لا مثيل لها',
@@ -882,14 +1324,17 @@
                 nav_pricing: 'Pricing', 
                 nav_stats: 'Statistics',
                 nav_contact: 'Contact',
-                download_btn: 'Download Now',
+                download_lite: 'Download Lite Version',
+                download_original: 'Download Original Version',
                 lang_toggle: '🌍 العربية',
                 
                 // Hero section
                 hero_title: 'Revolution in <span class="highlight">TikTok Live</span>',
                 hero_desc: 'StreamTok is the smart control tool for TikTok Live streaming with automatic reactions and custom sounds for more engaging and fun interaction',
                 try_now: 'Try Now',
-                price_tag: '$3/month',
+                price_tag: '$6/month',
+                lite_price: '$3/month',
+                original_price: '$6/month',
                 
                 // Features
                 features_title: 'Unmatched Features',
@@ -977,12 +1422,15 @@
             // Update buttons
             document.getElementById('downloadBtn').textContent = t.download_btn;
             document.getElementById('langToggle').textContent = t.lang_toggle;
+            document.querySelector('.lite-btn').textContent = t.download_lite;
+            document.querySelector('.original-btn').textContent = t.download_original;
             
             // Update hero section
             document.querySelector('.hero-text h1').innerHTML = t.hero_title;
             document.querySelector('.hero-text p').textContent = t.hero_desc;
             document.querySelector('.primary-btn').innerHTML = t.try_now + ' <span class="price-tag">' + t.price_tag + '</span>';
-            document.querySelector('.secondary-btn').textContent = t.download_btn;
+            document.querySelector('.lite-btn').innerHTML = t.download_lite + ' <span class="price-tag-lite">' + t.lite_price + '</span>';
+            document.querySelector('.original-btn').innerHTML = t.download_original + ' <span class="price-tag-original">' + t.original_price + '</span>';
             
             // Update features section
             document.querySelector('.features .section-title h2').textContent = t.features_title;
@@ -1056,6 +1504,8 @@
             document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
             document.documentElement.lang = currentLang;
         }
+        // Initialize page with English language
+        updateLanguage();
     </script>
 </head>
 <body>
@@ -1068,16 +1518,16 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="#home">الرئيسية</a></li>
-                    <li><a href="#features">المميزات</a></li>
-                    <li><a href="#pricing">الأسعار</a></li>
-                    <li><a href="#stats">الإحصائيات</a></li>
-                    <li><a href="#contact">تواصل</a></li>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#stats">Statistics</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
             <div class="header-buttons">
-                <button id="langToggle" class="lang-toggle" onclick="toggleLanguage()">🌍 English</button>
-                <button class="cta-button" onclick="window.open('https://github.com/StreamTok/StreamTok/releases/download/v2.1.0/StreamTok_Installer.exe', '_blank')" id="downloadBtn">حمل الأن</button>
+                <button id="langToggle" class="lang-toggle" onclick="toggleLanguage()">🌍 العربية</button>
+                <button class="cta-button" onclick="window.open('https://github.com/StreamTok/StreamTok/releases/download/v2.1.0/StreamTok_Installer.exe', '_blank')" id="downloadBtn">Download Now</button>
             </div>
         </div>
     </header>
@@ -1088,20 +1538,23 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
-                    <h1>ثورة في عالم <span class="highlight">تيك توك لايف</span></h1>
-                    <p>StreamTok هو أداة التحكم الذكي في بث TikTok Live مع ردود أفعال تلقائية وأصوات مخصصة لتفاعل أكثر إثارة ومتعة</p>
+                    <h1>Revolution in <span class="highlight">TikTok Live</span></h1>
+                    <p>StreamTok is the smart control tool for TikTok Live streaming with automatic reactions and custom sounds for more engaging and fun interaction</p>
                     <div class="hero-buttons">
-                        <button class="primary-btn">جرب الآن <span class="price-tag">3$/شهر</span></button>
-                        <button class="secondary-btn" onclick="window.open('https://github.com/StreamTok/StreamTok/releases/download/v2.1.0/StreamTok_Installer.exe', '_blank')">حمل الأن</button>
+                        <button class="primary-btn">Try Now <span class="price-tag">$6/month</span></button>
+                        <div class="download-buttons">
+                            <button class="lite-btn" onclick="window.open('https://github.com/StreamTok/StreamTok/releases/download/v2.1.0/StreamTok_Installer.exe', '_blank')">Download Lite Version <span class="price-tag-lite">$3/month</span></button>
+                            <button class="original-btn" onclick="window.open('https://github.com/StreamTok/StreamTok/releases/download/v2.1.0/StreamTok.Setup.1.0.0.exe', '_blank')">Download Original Version <span class="price-tag-original">$6/month</span></button>
+                        </div>
                     </div>
                 </div>
                 <div class="hero-visual">
                     <div class="phone-mockup">
                         <div class="phone-screen">
                             <div class="screen-content">
-                                <div class="live-indicator">مباشر</div>
+                                <div class="live-indicator">LIVE</div>
                                 <h3>StreamTok</h3>
-                                <p>أدوات البث الاحترافية</p>
+                                <p>Professional Streaming Tools</p>
                                 <div class="viewer-count">
                                     <i class="fas fa-eye"></i> 12.5K
                                 </div>
@@ -1117,51 +1570,51 @@
     <section class="features" id="features">
         <div class="container">
             <div class="section-title">
-                <h2>مميزات لا مثيل لها</h2>
-                <p>أدوات ذكية تجعل بثك على TikTok Live أكثر تفاعلاً ومتعة للمشاهدين</p>
+                <h2>Unmatched Features</h2>
+                <p>Smart tools that make your TikTok Live streams more interactive and enjoyable for viewers</p>
             </div>
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-chart-line"></i>
                     </div>
-                    <h3>ردود أفعال تلقائية ذكية</h3>
-                    <p>استجابة فورية لتعليقات المشاهدين والهدايا مع محاكاة المفاتيح التلقائية لتفاعل أسرع وأكثر متعة</p>
+                    <h3>Smart Automatic Reactions</h3>
+                    <p>Instant response to viewer comments and gifts with automatic key simulation for faster and more enjoyable interaction</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-users"></i>
                     </div>
-                    <h3>أصوات مخصصة للأحداث</h3>
-                    <p>تنبيهات صوتية مميزة لكل هدية وتعليق ومتابعة جديدة، تجعل بثك أكثر حيوية وإثارة للمشاهدين</p>
+                    <h3>Custom Event Sounds</h3>
+                    <p>Distinctive audio alerts for every gift, comment, and new follow, making your stream more lively and exciting for viewers</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-magic"></i>
                     </div>
-                    <h3>قراءة التعليقات بالصوت</h3>
-                    <p>تحويل التعليقات إلى كلام مسموع بأصوات عربية وإنجليزية متنوعة لتفاعل أفضل مع جمهورك</p>
+                    <h3>Text-to-Speech Comments</h3>
+                    <p>Convert comments to spoken words with various Arabic and English voices for better audience engagement</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-comments"></i>
                     </div>
-                    <h3>إدارة البروفايلات المتعددة</h3>
-                    <p>حفظ إعدادات مختلفة لكل نوع بث وتبديل سريع بين البروفايلات لتجربة متنوعة ومرنة</p>
+                    <h3>Multiple Profile Management</h3>
+                    <p>Save different settings for each stream type and quickly switch between profiles for a diverse and flexible experience</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-calendar-alt"></i>
                     </div>
-                    <h3>واجهة ثنائية اللغة</h3>
-                    <p>تبديل فوري بين العربية والإنجليزية مع حفظ التفضيلات لتجربة مستخدم مثالية</p>
+                    <h3>Bilingual Interface</h3>
+                    <p>Instant switching between Arabic and English with saved preferences for an ideal user experience</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-coins"></i>
                     </div>
-                    <h3>وضع اللعب المتطور</h3>
-                    <p>هوت كيز قابلة للتخصيص مع تكرار تلقائي وتأخيرات عشوائية لتحكم احترافي أثناء البث</p>
+                    <h3>Advanced Game Mode</h3>
+                    <p>Customizable hotkeys with automatic repeat and random delays for professional control during streaming</p>
                 </div>
             </div>
         </div>
@@ -1171,27 +1624,51 @@
     <section class="pricing" id="pricing">
         <div class="container">
             <div class="section-title">
-                <h2>أسعار مميزة</h2>
-                <p>الحصول على هذه المميزات القوية بسعر معقول</p>
+                <h2>Choose the Plan That Suits You</h2>
+                <p>Different plans to suit all your needs</p>
             </div>
-            <div class="pricing-card">
-                <div class="pricing-header">
-                    <div class="pricing-title">الخطة المميزة</div>
-                    <div class="pricing-price">$3</div>
-                    <div class="pricing-period">شهرياً فقط</div>
+            <div class="pricing-cards">
+                <div class="pricing-card lite-card">
+                    <div class="pricing-header">
+                        <div class="pricing-title">Basic Plan</div>
+                        <div class="pricing-price">$3</div>
+                        <div class="pricing-period">monthly only</div>
+                        <div class="pricing-desc">Basic features for professional streaming</div>
+                    </div>
+                    <div class="pricing-body">
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check-circle"></i> Smart reactions for comments and gifts</li>
+                            <li><i class="fas fa-check-circle"></i> Automatic key simulation</li>
+                            <li><i class="fas fa-check-circle"></i> Custom sounds for each event</li>
+                            <li><i class="fas fa-check-circle"></i> Comment reading with one voice</li>
+                            <li><i class="fas fa-check-circle"></i> Single profile management</li>
+                            <li><i class="fas fa-check-circle"></i> Basic game mode</li>
+                            <li><i class="fas fa-check-circle"></i> Bilingual interface (Arabic/English)</li>
+                            <li><i class="fas fa-check-circle"></i> Free updates</li>
+                        </ul>
+                        <button class="pricing-button">Start Your Experience Now</button>
+                    </div>
                 </div>
-                <div class="pricing-body">
-                    <ul class="pricing-features">
-                        <li><i class="fas fa-check-circle"></i> ردود أفعال ذكية للتعليقات والهدايا</li>
-                        <li><i class="fas fa-check-circle"></i> محاكاة مفاتيح تلقائية متطورة</li>
-                        <li><i class="fas fa-check-circle"></i> أصوات مخصصة لكل حدث</li>
-                        <li><i class="fas fa-check-circle"></i> قراءة التعليقات بأصوات متعددة</li>
-                        <li><i class="fas fa-check-circle"></i> إدارة بروفايلات متعددة</li>
-                        <li><i class="fas fa-check-circle"></i> وضع اللعب مع هوت كيز قابلة للتخصيص</li>
-                        <li><i class="fas fa-check-circle"></i> واجهة ثنائية اللغة (عربي/إنجليزي)</li>
-                        <li><i class="fas fa-check-circle"></i> تحديثات مجانية ودعم فني</li>
-                    </ul>
-                    <button class="pricing-button">ابدأ تجربتك الآن</button>
+                <div class="pricing-card original-card">
+                    <div class="pricing-header">
+                        <div class="pricing-title">Advanced Plan</div>
+                        <div class="pricing-price">$6</div>
+                        <div class="pricing-period">monthly only</div>
+                        <div class="pricing-desc">All features with advanced tools</div>
+                    </div>
+                    <div class="pricing-body">
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check-circle"></i> Advanced smart reactions for comments and gifts</li>
+                            <li><i class="fas fa-check-circle"></i> Advanced automatic key simulation</li>
+                            <li><i class="fas fa-check-circle"></i> Unlimited custom sounds</li>
+                            <li><i class="fas fa-check-circle"></i> Comment reading with multiple voices</li>
+                            <li><i class="fas fa-check-circle"></i> Multiple profile management</li>
+                            <li><i class="fas fa-check-circle"></i> Advanced game mode with customizable hotkeys</li>
+                            <li><i class="fas fa-check-circle"></i> Bilingual interface (Arabic/English)</li>
+                            <li><i class="fas fa-check-circle"></i> Free updates and premium support</li>
+                        </ul>
+                        <button class="pricing-button">Start Your Experience Now</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1201,25 +1678,25 @@
     <section class="stats" id="stats">
         <div class="container">
             <div class="section-title">
-                <h2>نتائج مذهلة</h2>
-                <p>انضم إلى آلاف المبدعين الذين يستخدمون StreamTok</p>
+                <h2>Amazing Results</h2>
+                <p>Join thousands of creators using StreamTok</p>
             </div>
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-number">95%</div>
-                    <div class="stat-label">زيادة في التفاعل</div>
+                    <div class="stat-label">Increase in Engagement</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number">3X</div>
-                    <div class="stat-label">سرعة الاستجابة</div>
+                    <div class="stat-label">Response Speed</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number">24/7</div>
-                    <div class="stat-label">دعم فني متواصل</div>
+                    <div class="stat-label">Continuous Support</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number">5K+</div>
-                    <div class="stat-label">مبدع نشط</div>
+                    <div class="stat-label">Active Creators</div>
                 </div>
             </div>
         </div>
@@ -1228,9 +1705,9 @@
     <!-- CTA Section -->
     <section class="cta">
         <div class="container">
-            <h2>هل أنت مستعد للتميز؟</h2>
-            <p>انضم إلى آلاف المبدعين الذين غيروا تجربة بثهم على TikTok مع StreamTok</p>
-            <button class="primary-btn">ابدأ تجربتك الآن</button>
+            <h2>Ready to Excel?</h2>
+            <p>Join thousands of creators who transformed their TikTok streaming experience with StreamTok</p>
+            <button class="primary-btn">Start Your Experience Now</button>
         </div>
     </section>
 
@@ -1240,7 +1717,7 @@
             <div class="footer-grid">
                 <div class="footer-col">
                     <h3>StreamTok</h3>
-                    <p>أداة التحكم الذكي في TikTok Live مع ردود أفعال تلقائية وأصوات مخصصة</p>
+                    <p>Smart control tool for TikTok Live with automatic reactions and custom sounds</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
@@ -1250,36 +1727,36 @@
                     </div>
                 </div>
                 <div class="footer-col">
-                    <h3>روابط سريعة</h3>
+                    <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="#home">الرئيسية</a></li>
-                        <li><a href="#features">المميزات</a></li>
-                        <li><a href="#pricing">الأسعار</a></li>
-                        <li><a href="#stats">الإحصائيات</a></li>
-                        <li><a href="#contact">تواصل</a></li>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#stats">Statistics</a></li>
+                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h3>الدعم</h3>
+                    <h3>Support</h3>
                     <ul>
-                        <li><a href="#">مركز المساعدة</a></li>
-                        <li><a href="#">الأسئلة الشائعة</a></li>
-                        <li><a href="#">دليل الاستخدام</a></li>
-                        <li><a href="#">سياسة الخصوصية</a></li>
-                        <li><a href="#">شروط الخدمة</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">User Guide</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
-                    <h3>تواصل معنا</h3>
+                    <h3>Contact Us</h3>
                     <ul>
                         <li><i class="fas fa-envelope"></i> support@streamtok.com</li>
                         <li><i class="fas fa-phone"></i> +966 50 123 4567</li>
-                        <li><i class="fas fa-map-marker-alt"></i> الرياض، السعودية</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Riyadh, Saudi Arabia</li>
                     </ul>
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2023 StreamTok. جميع الحقوق محفوظة.</p>
+                <p>&copy; 2023 StreamTok. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -1292,6 +1769,27 @@
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Add hover effect to buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px)';
+            });
+
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
             });
         });
 
@@ -1354,6 +1852,7 @@
 </body>
 
 </html>
+
 
 
 
